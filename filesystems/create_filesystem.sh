@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 : << 'EOC'
 vgs
-lvcr>eate -L 2 G -n new_logical_volume vol_group
+lvcreate -L 2 G -n new_logical_volume vol_group
 mkfs.ext4 new_logical_volume
 mkdir -p mount_dir
 mount /dev/vol_group/new_logical_volume mount_dir
@@ -23,6 +23,9 @@ function check_vgs_space() {
 	# Check how much space is available on volume group
 	local VGS_SPACE=$( $(vgs "$VGS_NAME") awk '{ print $6 }' | grep -vi "vfree" )
 	echo "Found ${VGS_SPACE} of place in ${VGS_NAME}"
+
+	# Scale down to MB
+	VGS_SPACE=$(( ${VGS_SPACE} * 1024 ))
 
 	# Will have to return the value in MB
 	return ${VGS_SPACE}
