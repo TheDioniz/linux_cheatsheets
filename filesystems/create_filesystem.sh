@@ -58,7 +58,11 @@ function is_enough_space_in_vgs() {
 	# return 0 if enough, 1 if not enough
 }
 
+function save_to_etc_fstab() {
+	:
+}
 
+# Main part of the script
 
 ENOUGH=is_enough_space_in_vgs
 
@@ -78,7 +82,7 @@ elif [[ "${ENOUGH}" -eq "0" ]]; then
 		lv_name_dir="/${lv_name_dir//_//}"
 		#mkdir -p ${lv_name_dir}
 		#mount /dev/${VGS_NAME}/${lv_name} ${lv_name_dir}
-		#save in /etc/fstab
+		#save_to_etc_fstab
 	done
 	
 fi
